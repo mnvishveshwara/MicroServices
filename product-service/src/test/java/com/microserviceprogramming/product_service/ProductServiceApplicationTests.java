@@ -70,6 +70,8 @@
 package com.microserviceprogramming.product_service;
 
 import com.microserviceprogramming.product_service.dto.ProductDto;
+import com.microserviceprogramming.product_service.repository.ProductRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -97,6 +99,8 @@ class ProductServiceApplicationTests {
     private MockMvc mockMvc;
 
     private final ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    private ProductRepository productRepository;
 
     @Container
     static PostgreSQLContainer<?> postgreSQLContainer =
@@ -121,6 +125,9 @@ class ProductServiceApplicationTests {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(productDtoString))
                 .andExpect(status().isCreated()); // ✅ Moved outside perform()
+        Assertions.assertEquals(1, productRepository.findAll().size());
+        System.out.println("✅ Product Created: " + productRepository.findAll().size());
+
     }
 
     private ProductDto getProductRequest() {
