@@ -29,7 +29,4 @@ public class ProductController {
         return productService.getALlProduct();
     }
 
-
-
-
 }

@@ -44,6 +44,7 @@ public class ProductService {
                 .id(products.getId())
                 .name(products.getName())
                 .description(products.getDescription())
+
                 .price(products.getPrice())
                 .build();
     }
